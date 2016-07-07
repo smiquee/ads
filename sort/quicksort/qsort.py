@@ -19,8 +19,7 @@ def qsort(array):
             if x == pivot:
                 equal.append(x)
                 continue
-            if x > pivot:
-                greater.append(x)
+            greater.append(x)
         less = qsort(less)
         greater = qsort(greater)
 

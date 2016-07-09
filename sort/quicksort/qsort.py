@@ -97,6 +97,12 @@ def main(input=None):
     mem = process.get_memory_info()[0] / float(2 ** 20)
     print("qsort_inplace: %fs   (%f)" % (stop - start, mem))
 
+    start = time.time()
+    array.sort()
+    stop = time.time()
+    mem = process.get_memory_info()[0] / float(2 ** 20)
+    print("python_sort:   %fs   (%f)" % (stop - start, mem))
+
 
 if __name__ == "__main__":
     """

@@ -76,23 +76,26 @@ def main(input=None):
             os.sys.stderr.write("%s\n" % err)
             os.sys.exit(1)
 
-    print array
+    # print(array)
     gc.disable()
     process = psutil.Process(os.getpid())
     gc.collect()
     start = time.time()
+    # narray = qsort(array)
     qsort(array)
     stop = time.time()
+    # print(narray)
     mem = process.get_memory_info()[0] / float(2 ** 20)
-    print "qsort:         %fs   (%f)" % (stop - start, mem)
+    print("qsort:         %fs   (%f)" % (stop - start, mem))
 
     gc.collect()
 
     start = time.time()
     qsort_inplace(array)
     stop = time.time()
+    # print(array)
     mem = process.get_memory_info()[0] / float(2 ** 20)
-    print "qsort_inplace: %fs   (%f)" % (stop - start, mem)
+    print("qsort_inplace: %fs   (%f)" % (stop - start, mem))
 
 
 if __name__ == "__main__":

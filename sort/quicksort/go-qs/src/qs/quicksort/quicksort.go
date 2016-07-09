@@ -23,10 +23,20 @@ func main() {
 		array[i] = rand.Intn(100)
 	}
 
+	//fmt.Println(array)
+
 	start := time.Now()
-	// narray := qs.Quicksort(&array)
+	//narray := qs.Quicksort(&array)
 	qs.Quicksort(&array)
 	stop := time.Now()
+	//fmt.Println(narray)
 	var duration time.Duration = stop.Sub(start)
-	fmt.Printf("quicksort: %.9fs\n", duration.Seconds())
+	fmt.Printf("quicksort        : %.9fs\n", duration.Seconds())
+
+	start = time.Now()
+	qs.Quicksort_inplace(&array, 0, len(array)-1)
+	stop = time.Now()
+	duration = stop.Sub(start)
+	fmt.Printf("quicksort_inplace: %.9fs\n", duration.Seconds())
+	//fmt.Println(array)
 }

@@ -34,6 +34,29 @@ func Quicksort(array *[]int) []int {
 	return *array
 }
 
-func Quicksort_inplace(*[]int) {
-	// To implement
+func Quicksort_inplace(array *[]int, start int, end int) {
+	if end-start > 1 {
+		pivot := (*array)[start+((end-start)/2)]
+
+		left := start
+		right := end
+
+		for left <= right {
+			for (left <= end) && ((*array)[left] < pivot) {
+				left++
+			}
+			for (right >= start) && ((*array)[right] > pivot) {
+				right--
+			}
+			if left <= right {
+				tmp := (*array)[left]
+				(*array)[left] = (*array)[right]
+				(*array)[right] = tmp
+				left++
+				right--
+			}
+		}
+		Quicksort_inplace(array, left, end)
+		Quicksort_inplace(array, start, right)
+	}
 }

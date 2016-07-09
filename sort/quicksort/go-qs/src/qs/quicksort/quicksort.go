@@ -3,24 +3,58 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"math/rand"
+	"os"
 	"qs"
+	"strconv"
+	"strings"
 	"time"
 )
 
-func random(min, max int) int {
-	rand.Seed(time.Now().Unix())
-	return rand.Intn(max-min) + min
+func readFile(fname string) (array []int, err error) {
+	buffer, err := ioutil.ReadFile(fname)
+	if err != nil {
+		return nil, err
+	}
+
+	lines := strings.Split(string(buffer), "\n")
+	// Assign cap to avoid resize on every append.
+	array = make([]int, 0, len(lines))
+
+	for _, line := range lines {
+		// Empty line occurs at the end of the file when we use Split.
+		if len(line) == 0 {
+			continue
+		}
+		// Atoi better suits the job when we know exactly what we're dealing
+		// with. Scanf is the more general option.
+		n, err := strconv.Atoi(line)
+		if err != nil {
+			return nil, err
+		}
+		array = append(array, n)
+	}
+	return array, nil
 }
 
 func main() {
 
-	array := make([]int, 100)
+	var array []int
+	var err error
 
-	rand.Seed(time.Now().UTC().UnixNano())
+	if len(os.Args) == 2 {
+		array, err = readFile(os.Args[1])
+		if err != nil {
+			panic(err)
+		}
+	} else {
+		array = make([]int, 10000)
+		rand.Seed(time.Now().UTC().UnixNano())
 
-	for i := 0; i < 100; i++ {
-		array[i] = rand.Intn(100)
+		for i := 0; i < 10000; i++ {
+			array[i] = rand.Intn(10000)
+		}
 	}
 
 	//fmt.Println(array)

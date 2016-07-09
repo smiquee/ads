@@ -54,19 +54,31 @@ def qsort_inplace(array, start=0, end=-1):
         qsort_inplace(array, start, right)
 
 
-def main(nb):
+def main(input=None):
     """
     Main function.
     """
     import time
-    import numpy.random as nprnd
     import psutil
     import gc
     import os
 
+    if input is None:
+        import numpy.random as nprnd
+        array = list(nprnd.randint(10000, size=10000))
+    else:
+        array = list()
+        try:
+            with open(input, 'r') as _f:
+                for elt in _f.readlines():
+                    array.append(int(elt))
+        except (IOError, ValueError) as err:
+            os.sys.stderr.write("%s\n" % err)
+            os.sys.exit(1)
+
+    print array
     gc.disable()
     process = psutil.Process(os.getpid())
-    array = list(nprnd.randint(nb, size=nb))
     gc.collect()
     start = time.time()
     qsort(array)
@@ -89,6 +101,6 @@ if __name__ == "__main__":
     """
     import sys
     if len(sys.argv) == 2:
-        main(int(sys.argv[1]))
+        main(sys.argv[1])
     else:
-        main(100)
+        main()

@@ -1,4 +1,4 @@
-// desc
+// Quicksort algorithms implementation benchmark
 package main
 
 import (

@@ -17,8 +17,10 @@ func main() {
 
 	array := make([]int, 100)
 
+	rand.Seed(time.Now().UTC().UnixNano())
+
 	for i := 0; i < 100; i++ {
-		array = append(array, random(0, 100))
+		array[i] = rand.Intn(100)
 	}
 
 	start := time.Now()

@@ -49,10 +49,10 @@ func main() {
 			panic(err)
 		}
 	} else {
-		array = make([]int, 10000)
+		array = make([]int, 100000000)
 		rand.Seed(time.Now().UTC().UnixNano())
 
-		for i := 0; i < 10000; i++ {
+		for i := 0; i < 100000000; i++ {
 			array[i] = rand.Intn(1000)
 		}
 	}
@@ -74,4 +74,13 @@ func main() {
 	//fmt.Println(narray)
 	duration = stop.Sub(start)
 	fmt.Printf("mergesort_less_copy:%.9fs\n", duration.Seconds())
+
+	// Not an efficient parallel implementation
+	// start = time.Now()
+	// //narray := ms.Mergesort_parallel(array)
+	// ms.Mergesort_parallel(array)
+	// stop = time.Now()
+	// //fmt.Println(narray)
+	// duration = stop.Sub(start)
+	// fmt.Printf("mergesort_parallel: %.9fs\n", duration.Seconds())
 }

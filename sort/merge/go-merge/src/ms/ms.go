@@ -64,3 +64,41 @@ func Mergesort_less_copy(array *[]int, start int, end int) []int {
 	}
 	return (*array)[start:end]
 }
+
+// Trying to implement a parallel version using goroutines and channels
+// It is clearly not efficient and crash with to large array
+func Mergesort_parallel(array []int) []int {
+	if len(array) > 1 {
+		pivot := int(len(array) / 2)
+
+		cleft := make(chan []int)
+		cright := make(chan []int)
+
+		go parallel_task(array[0:pivot], cleft)
+		go parallel_task(array[pivot:len(array)], cright)
+
+		left := <-cleft
+		right := <-cright
+
+		return merge(left, right)
+	}
+	return array
+}
+
+func parallel_task(array []int, c chan []int) {
+	if len(array) > 1 {
+		pivot := int(len(array) / 2)
+
+		cleft := make(chan []int)
+		cright := make(chan []int)
+
+		go parallel_task(array[0:pivot], cleft)
+		go parallel_task(array[pivot:len(array)], cright)
+
+		left := <-cleft
+		right := <-cright
+
+		c <- merge(left, right)
+	}
+	c <- array
+}

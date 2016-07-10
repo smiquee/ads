@@ -66,4 +66,12 @@ func main() {
 	//fmt.Println(narray)
 	var duration time.Duration = stop.Sub(start)
 	fmt.Printf("mergesort:          %.9fs\n", duration.Seconds())
+
+	start = time.Now()
+	//narray := ms.Mergesort_less_copy(&array, 0, len(array))
+	ms.Mergesort_less_copy(&array, 0, len(array))
+	stop = time.Now()
+	//fmt.Println(narray)
+	duration = stop.Sub(start)
+	fmt.Printf("mergesort_less_copy:%.9fs\n", duration.Seconds())
 }

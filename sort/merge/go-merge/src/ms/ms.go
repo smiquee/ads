@@ -50,3 +50,17 @@ func merge(left []int, right []int) []int {
 
 	return ret
 }
+
+// Trying an approach to reduce memory consumption by avoid intial copy
+// It is a bit slower than the regular implementation
+func Mergesort_less_copy(array *[]int, start int, end int) []int {
+	if end-start > 1 {
+		pivot := int(start + (end-start)/2)
+
+		left := Mergesort_less_copy(array, start, pivot)
+		right := Mergesort_less_copy(array, pivot, end)
+
+		return merge(left, right)
+	}
+	return (*array)[start:end]
+}

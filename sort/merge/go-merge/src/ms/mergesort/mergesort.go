@@ -60,20 +60,25 @@ func main() {
 	//fmt.Println(array)
 
 	start := time.Now()
-	//narray := ms.Mergesort(array)
-	ms.Mergesort(array)
+	narray := ms.Mergesort(array)
 	stop := time.Now()
 	//fmt.Println(narray)
 	var duration time.Duration = stop.Sub(start)
-	fmt.Printf("mergesort:          %.9fs\n", duration.Seconds())
+	fmt.Printf("mergesort:                  %.9fs\n", duration.Seconds())
+	if narray == nil {
+		fmt.Println("error!")
+	}
 
 	start = time.Now()
-	//narray := ms.Mergesort_less_copy(&array, 0, len(array))
-	ms.Mergesort_less_copy(&array, 0, len(array))
+	narray = ms.Mergesort_less_copy(&array, 0, len(array))
 	stop = time.Now()
 	//fmt.Println(narray)
 	duration = stop.Sub(start)
-	fmt.Printf("mergesort_less_copy:%.9fs\n", duration.Seconds())
+	fmt.Printf("mergesort_less_copy:        %.9fs\n", duration.Seconds())
+
+	if narray == nil {
+		fmt.Println("error!")
+	}
 
 	// Not an efficient parallel implementation
 	// start = time.Now()
@@ -83,4 +88,11 @@ func main() {
 	// //fmt.Println(narray)
 	// duration = stop.Sub(start)
 	// fmt.Printf("mergesort_parallel: %.9fs\n", duration.Seconds())
+
+	start = time.Now()
+	ms.Mergesort_less_copy_inplace(&array, 0, len(array))
+	stop = time.Now()
+	//fmt.Println(array)
+	duration = stop.Sub(start)
+	fmt.Printf("mergesort_less_copy_inplace:%.9fs\n", duration.Seconds())
 }
